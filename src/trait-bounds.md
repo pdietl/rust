@@ -45,15 +45,16 @@ trait is implemented for a type. For example, given `Ty: Trait`
   being used for `T`.
 
 ```rust
-# type Surface = i32;
+type Surface = i32;
+
 trait Shape {
-    fn draw(&self, Surface);
+    fn draw(&self, surface: Surface);
     fn name() -> &'static str;
 }
 
 fn draw_twice<T: Shape>(surface: Surface, sh: T) {
     sh.draw(surface);           // Can call method because T: Shape
-    sh.draw(surface);
+    sh.draw(surface);           // Call twice because Surface: Copy
 }
 
 fn copy_and_draw_twice<T: Copy>(surface: Surface, sh: T) where T: Shape {
